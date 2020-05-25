@@ -1,6 +1,6 @@
 Example HTTP API Server running on [Deno](https://deno.land).
 
-This is a port for Deno of my [[addressbook][addressbook]] Node.js demo.
+This is a port for Deno of my [addressbook](https://github.com/TomFern/addressbook) Node.js demo.
 
 ## Install and Run
 
@@ -57,14 +57,16 @@ $ deno run --allow-net --allow-env src/app.js &
 $ deno test --allow-net --allow-env src/test/app.test.js
 ```
 
-## Run in Docker
+## Docker
 
-Run with docker (WIP):
+The whole application can be packaged in a Docker image for easier deployment.
 
 ```bash
-$ docker run -it -d -p 5432:5432 postgres
 $ docker build -t addressbook-deno .
-$ docker run d -it -p 4000:4000 -n addressbook addressbook-deno
-$ docker exec -it addressbook deno --allow-env --allow-net migrate.js
 ```
 
+## License
+
+Copyright (c) 2020 Rendered Text
+
+Distributed under the MIT License. See the file [LICENSE.md](./LICENSE.md).
