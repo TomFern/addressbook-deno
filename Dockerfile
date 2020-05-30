@@ -12,5 +12,5 @@ ENV PATH "${DENO_INSTALL}/bin:${PATH}"
 RUN mkdir -p $HOME/app/src
 COPY --chown=deno:deno src/ $HOME/app/src
 WORKDIR $HOME/app/src
-RUN deno cache *.js tests/*.js
+RUN deno cache deps.ts
 CMD deno run -A app.js
