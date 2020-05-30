@@ -13,4 +13,4 @@ RUN mkdir -p $HOME/app/src
 COPY --chown=deno:deno src/ $HOME/app/src
 WORKDIR $HOME/app/src
 RUN deno cache deps.ts
-CMD deno run -A app.js
+CMD deno run --allow-env --allow-net app.js
