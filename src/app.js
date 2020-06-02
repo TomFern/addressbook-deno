@@ -39,7 +39,7 @@ router
 
     const person = new Person(null, personData.firstName, personData.lastName);
     await person.save(db);
-    context.response.body = { ok: true };
+    context.response.body = { ok: true, person: person };
   })
   .post("/person/:id", async (context) => {
     if (!context.request.hasBody) {
@@ -52,13 +52,13 @@ router
 
     const person = new Person(id, personData.firstName, personData.lastName);
     await person.save(db);
-    context.response.body = { ok: true };
+    context.response.body = { ok: true, person: person };
   })
   .delete("/person/:id", async (context) => {
     const id = context.params.id;
     const person = new Person(id);
     await person.delete(db);
-    context.response.body = { ok: true };
+    context.response.body = { ok: true, person: person };
   });
 
 const app = new Application();
