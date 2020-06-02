@@ -5,7 +5,7 @@ RUN apt-get update \
 RUN groupadd --gid 1000 deno \
   && useradd --uid 1000 --gid deno --shell /bin/bash --create-home deno
 USER deno
-RUN curl -fsSL -k https://deno.land/x/install/install.sh | sh
+RUN curl -fsSL -k https://deno.land/x/install/install.sh | sh -s v1.0.3
 ENV HOME "/home/deno"
 ENV DENO_INSTALL "${HOME}/.deno"
 ENV PATH "${DENO_INSTALL}/bin:${PATH}"
