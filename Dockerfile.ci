@@ -1,5 +1,4 @@
 # Docker CI/CD image for Deno (deno.land)
-
 FROM debian:buster
 
 # Make APT non-interactive
@@ -19,22 +18,8 @@ RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 RUN locale-gen C.UTF-8 || true
 ENV LANG=C.UTF-8
 
-# USER deno
-##RUN curl -fsSL -k https://deno.land/x/install/install.sh | sh
+# Install Deno
 RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.3
 RUN cp /root/.deno/bin/deno /usr/local/bin && rm -rf /root/.deno
 
-# Add deno user and install deno
-# RUN groupadd --gid 1000 deno \
-#   && useradd --uid 1000 --gid deno --shell /bin/bash --create-home deno
-# ENV HOME "/home/deno"
-# ENV DENO_INSTALL "${HOME}/.deno"
-# ENV PATH "${DENO_INSTALL}/bin:${PATH}"
-# USER root
-
-# RUN mkdir -p $HOME/app/src
-# COPY --chown=deno:deno src/ $HOME/app/src
-# WORKDIR $HOME/app/src
-# RUN deno cache deps.ts
-# CMD deno run --allow-env --allow-net app.js
 CMD ["/bin/sh"]
