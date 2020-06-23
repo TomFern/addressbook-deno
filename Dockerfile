@@ -5,12 +5,12 @@ RUN apt-get update \
 RUN groupadd --gid 1000 deno \
   && useradd --uid 1000 --gid deno --shell /bin/bash --create-home deno
 USER deno
-RUN curl -fsSL -k https://deno.land/x/install/install.sh | sh
+RUN curl -fsSL -k https://deno.land/x/install/install.sh | sh -s v1.0.3
 ENV HOME "/home/deno"
 ENV DENO_INSTALL "${HOME}/.deno"
 ENV PATH "${DENO_INSTALL}/bin:${PATH}"
 RUN mkdir -p $HOME/app/src
 COPY --chown=deno:deno src/ $HOME/app/src
 WORKDIR $HOME/app/src
-RUN deno cache *.js tests/*.js
-CMD deno run -A app.js
+RUN deno cache deps.ts
+CMD deno run --allow-env --allow-net app.js

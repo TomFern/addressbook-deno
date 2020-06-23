@@ -6,7 +6,6 @@ const DB_HOST = Deno.env.get("DB_HOST") || "127.0.0.1";
 const DB_PORT = Deno.env.get("DB_PORT") || 5432;
 const DB_NAME = Deno.env.get("DB_NAME") || "postgres";
 const DB_USER = Deno.env.get("DB_USER") || "postgres";
-// note: password doesn't seem to do anything
 const DB_PASSWORD = Deno.env.get("DB_PASSWORD") || "";
 
 export function pgclient() {
@@ -31,11 +30,12 @@ export class Person {
   async save(client) {
     await client.connect();
     if (!this.id) {
-      await client.query(
-        "INSERT INTO people (firstName, lastName) VALUES ($1, $2)",
+      const data = await client.query(
+        "INSERT INTO people (firstName, lastName) VALUES ($1, $2) RETURNING id",
         this.firstName,
         this.lastName,
       );
+      this.id = data.rows[0][0];
     } else {
       await client.query(
         "UPDATE people SET firstName = $2, lastName = $3 WHERE id = $1",

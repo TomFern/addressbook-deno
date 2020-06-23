@@ -4,5 +4,6 @@ export {
   assertEquals,
   assertStrictEq,
   assertNotEquals,
+  assert
 } from "https://deno.land/std/testing/asserts.ts";
 

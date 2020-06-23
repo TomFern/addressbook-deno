@@ -1,0 +1,25 @@
+# Docker CI/CD image for Deno (deno.land)
+FROM debian:buster
+
+# Make APT non-interactive
+RUN echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/99semaphore
+RUN echo 'DPkg::Options "--force-confnew";' >> /etc/apt/apt.conf.d/99semaphore
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Semaphore+Deno requirements
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends \
+               ca-certificates sudo locales netbase netcat \
+               procps lftp curl unzip git openssh-client \
+        && rm -rf /var/cache/apt/archives
+
+# Setup locales/timezones
+RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
+RUN locale-gen C.UTF-8 || true
+ENV LANG=C.UTF-8
+
+# Install Deno
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.3
+RUN cp /root/.deno/bin/deno /usr/local/bin && rm -rf /root/.deno
+
+CMD ["/bin/sh"]
