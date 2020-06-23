@@ -1,4 +1,4 @@
-import { assertEquals, assertStrictEq, assertNotEquals, assert } from "../deps.ts";
+import { assertEquals, assertStrictEquals, assertNotEquals, assert } from "../deps.ts";
 
 export const APP_HOST = Deno.env.get("APP_HOST") || "127.0.0.1";
 export const APP_PORT = Deno.env.get("APP_PORT") || 4000;
@@ -32,8 +32,8 @@ Deno.test("test HTTP endpoints", async () => {
 
   response = await fetch(baseUrl + "/person/" + id);
   body = await response.json();
-  assertStrictEq(body.firstName, "Billy");
-  assertStrictEq(body.lastName, "Idol");
+  assertStrictEquals(body.firstName, "Billy");
+  assertStrictEquals(body.lastName, "Idol");
 
 
   // update person
@@ -56,8 +56,8 @@ Deno.test("test HTTP endpoints", async () => {
   response = await fetch(baseUrl + "/person/" + id);
   body = await response.json();
   assertEquals(response.status, 200);
-  assertStrictEq(body.firstName, "Billy");
-  assertStrictEq(body.lastName, "Jane");
+  assertStrictEquals(body.firstName, "Billy");
+  assertStrictEquals(body.lastName, "Jane");
 
 
   // get all persons
@@ -66,7 +66,7 @@ Deno.test("test HTTP endpoints", async () => {
   response = await fetch(baseUrl + "/persons");
   body = await response.json();
   assert(body.length > 0);
-  assertStrictEq(body[0].firstName, "Billy");
+  assertStrictEquals(body[0].firstName, "Billy");
 
 
   // delete person

@@ -3,7 +3,7 @@
 import { Client } from "./deps.ts";
 
 const DB_HOST = Deno.env.get("DB_HOST") || "127.0.0.1";
-const DB_PORT = Deno.env.get("DB_PORT") || 5432;
+const DB_PORT = +Deno.env.get("DB_PORT") || 5432;
 const DB_NAME = Deno.env.get("DB_NAME") || "postgres";
 const DB_USER = Deno.env.get("DB_USER") || "postgres";
 const DB_PASSWORD = Deno.env.get("DB_PASSWORD") || "";
@@ -97,7 +97,7 @@ export class Persons {
   }
 
   async getAll(client) {
-    const persons = Array();
+    const persons = [];
     await client.connect();
     const data = await client.query("SELECT * FROM people;");
     await client.end();
