@@ -19,7 +19,7 @@ RUN locale-gen C.UTF-8 || true
 ENV LANG=C.UTF-8
 
 # Install Deno
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.3
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.1.1
 RUN cp /root/.deno/bin/deno /usr/local/bin && rm -rf /root/.deno
 
 CMD ["/bin/sh"]
